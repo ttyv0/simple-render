@@ -47,14 +47,25 @@ func NewModel(fn string) *Model {
 		} else if strings.HasPrefix(line, "f ") {
 			var f []int
 			for _, s := range strings.Fields(line[2:]) {
-				for _, s2 := range strings.Split(s, "/") {
-					i, _ := strconv.Atoi(s2)
-					f = append(f, i-1)
-				}
+				s2 := strings.Split(s, "/")
+				i, _ := strconv.Atoi(s2[0])
+				f = append(f, i-1)
 			}
 			m.faces = append(m.faces, f)
 		}
 	}
-	log.Println("Len:", len(m.verts))
+	log.Println("Len:", len(m.verts), len(m.faces))
 	return m
+}
+
+func (vec *Vec3f) X() float64 {
+	return vec.raw[0]
+}
+
+func (vec *Vec3f) Y() float64 {
+	return vec.raw[1]
+}
+
+func (vec *Vec3f) Z() float64 {
+	return vec.raw[2]
 }
